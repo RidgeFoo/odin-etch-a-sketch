@@ -1,11 +1,6 @@
 const defaultGridSize = 16;
 const maxGridSize = 100;
 
-const topLeftRounded = "8px 0 0 0";
-const topRightRounded = "0 8px 0 0";
-const bottomLeftRounded = "0 0 0 8px";
-const bottomRightRounded = "0 0 8px 0";
-
 drawGrid(defaultGridSize);
 
 document.querySelector(".reset").addEventListener("click", (e) => {
@@ -28,7 +23,9 @@ document.querySelector(".resize").addEventListener("click", () => {
 
 function drawGrid(gridSize) {
   clearGrid();
+  // This is so that we can add a grid of any size within the etch a sketch
   const container = document.querySelector(".grid-container");
+  const boxHeightAndWidth = container.clientHeight / gridSize;
   // Create the grid area
   for (let i = 1; i <= gridSize; i++) {
     // Add row
@@ -40,26 +37,13 @@ function drawGrid(gridSize) {
     for (let x = 1; x <= gridSize; x++) {
       const gridBox = document.createElement("div");
       gridBox.className = "grid-box";
+      gridBox.style.width = `${boxHeightAndWidth.toString()}px`;
+      gridBox.style.height = `${boxHeightAndWidth.toString()}px`;
 
       // Setup event listener and change box colors
       gridBox.addEventListener("mouseenter", () =>
         gridBox.classList.add("grid-active")
       );
-
-      // Sort out borders of box on the outer edges
-      if (i === 1) {
-        if (x === 1) {
-          gridBox.style.borderRadius = topLeftRounded;
-        } else if (x === gridSize) {
-          gridBox.style.borderRadius = topRightRounded;
-        }
-      } else if (i === gridSize) {
-        if (x === 1) {
-          gridBox.style.borderRadius = bottomLeftRounded;
-        } else if (x === gridSize) {
-          gridBox.style.borderRadius = bottomRightRounded;
-        }
-      }
 
       row.append(gridBox);
     }
@@ -72,3 +56,6 @@ function clearGrid() {
     container.removeChild(container.firstChild);
   }
 }
+
+// Need to implement 4b in the task. Currently the total number of pixels would change!!
+// I'm guessing some sort of flex properties could be used within the containers?

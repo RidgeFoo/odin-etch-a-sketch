@@ -1,32 +1,36 @@
 body {
-  font-family: 'Amatic', cursive;
+  font-family: "Amatic", cursive;
+  background-color: gainsboro;
 }
 
 h1 {
-  text-align: center;
   color: white;
   margin: 0px 0px 12px 0px;
+  text-align: center;
 }
 
 .etch-a-sketch {
-  border: 2px solid red;
-  border-radius: 16px;
-  background: red;
+  border: 1px solid rgb(153, 3, 3);
+  border-radius: 24px;
+  background: rgb(153, 3, 3);
   padding: 12px 24px 0px 24px;
-  width: 500px;
+  margin: 32px auto 0 auto;
+  width: 600px;
+  height: 600px;
+}
+
+.grid-container {
+  width: 70%;
+  height: 70%;
   margin: auto;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden; /* this is so the curved borders are respected by the child elements*/
 }
 
 .row {
   display: flex;
   justify-content: center;
-}
-
-.grid-box {
-  width: 25px;
-  height: 25px;
-  border: 1px solid rgb(205, 203, 203);
-  background-color: white;
 }
 
 .grid-active {
@@ -45,7 +49,8 @@ button {
 }
 
 button:hover {
-  background-color: rgb(11, 136, 186);
+  background-color: rgba(8, 152, 209, 0.765);
+  border-color: rgba(8, 152, 209, 0.765);
   color: white;
 }
 
