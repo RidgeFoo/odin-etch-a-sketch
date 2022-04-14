@@ -1,14 +1,17 @@
+// Setup initial grid and page setup
 const defaultGridSize = 16;
 const maxGridSize = 100;
 
 drawGrid(defaultGridSize);
 
-document.querySelector(".reset").addEventListener("click", (e) => {
+// Reset the boxes in the grid back to a white background
+document.querySelector(".reset").addEventListener("click", () => {
   document
     .querySelectorAll(".grid-box")
-    .forEach((el) => el.classList.remove("grid-active"));
+    .forEach((el) => (el.style.background = "White"));
 });
 
+// Resize the number of boxes in the grid
 document.querySelector(".resize").addEventListener("click", () => {
   let keepGoing = true;
   while (keepGoing) {
@@ -37,17 +40,23 @@ function drawGrid(gridSize) {
     for (let x = 1; x <= gridSize; x++) {
       const gridBox = document.createElement("div");
       gridBox.className = "grid-box";
+      // Set the boxes within the grid to a height and width that allows them to stay inside their container
       gridBox.style.width = `${boxHeightAndWidth.toString()}px`;
       gridBox.style.height = `${boxHeightAndWidth.toString()}px`;
 
       // Setup event listener and change box colors
-      gridBox.addEventListener("mouseenter", () =>
-        gridBox.classList.add("grid-active")
-      );
+      setGridBoxEventListener(gridBox);
 
       row.append(gridBox);
     }
   }
+}
+
+function setGridBoxEventListener(el) {
+  el.addEventListener(
+    "mouseenter",
+    () => (el.style.background = getRandomColour())
+  );
 }
 
 function clearGrid() {
@@ -57,5 +66,9 @@ function clearGrid() {
   }
 }
 
-// Need to implement 4b in the task. Currently the total number of pixels would change!!
-// I'm guessing some sort of flex properties could be used within the containers?
+function getRandomColour() {
+  const maxNumber = 255;
+  return `rgb(${Math.random() * maxNumber}, ${Math.random() * maxNumber}, ${
+    Math.random() & maxNumber
+  }`;
+}
